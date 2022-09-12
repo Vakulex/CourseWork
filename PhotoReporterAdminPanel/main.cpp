@@ -1,4 +1,5 @@
-#include "photoreporteradminpanel.h"
+#include "PhotoReporterAdminPanel/photoreporteradminpanel.h"
+#include "AdminPanel/adminpanel.h"
 
 #include <QApplication>
 #include <qfile.h>

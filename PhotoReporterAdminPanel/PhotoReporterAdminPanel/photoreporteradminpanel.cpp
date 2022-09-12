@@ -1,4 +1,5 @@
-#include "photoreporteradminpanel.h"
+#include "PhotoReporterAdminPanel/photoreporteradminpanel.h"
+#include "AdminPanel/adminpanel.h"
 #include "ui_photoreporteradminpanel.h"
 
 PhotoReporterAdminPanel::PhotoReporterAdminPanel(QWidget *parent)

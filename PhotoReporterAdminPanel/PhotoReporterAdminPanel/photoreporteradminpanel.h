@@ -2,7 +2,7 @@
 #define PHOTOREPORTERADMINPANEL_H
 
 #include <QMainWindow>
-#include <adminpanel.h>
+#include <AdminPanel/adminpanel.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class PhotoReporterAdminPanel; }
