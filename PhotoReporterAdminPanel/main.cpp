@@ -3,6 +3,7 @@
 
 #include <QApplication>
 #include <qfile.h>
+#include <QtSql>
 
 int main(int argc, char *argv[])
 {
