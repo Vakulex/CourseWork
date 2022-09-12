@@ -1,21 +1,21 @@
-#include "PhotoReporterAdminPanel/photoreporteradminpanel.h"
+#include "PhotoJournalistAdminPanel/PhotoJournalistAdminPanel.h"
 #include "AdminPanel/adminpanel.h"
-#include "ui_photoreporteradminpanel.h"
+#include "ui_PhotoJournalistAdminPanel.h"
 
-PhotoReporterAdminPanel::PhotoReporterAdminPanel(QWidget *parent)
+PhotoJournalistAdminPanel::PhotoJournalistAdminPanel(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::PhotoReporterAdminPanel)
+    , ui(new Ui::PhotoJournalistAdminPanel)
 {
     ui->setupUi(this);
 }
 
-PhotoReporterAdminPanel::~PhotoReporterAdminPanel()
+PhotoJournalistAdminPanel::~PhotoJournalistAdminPanel()
 {
     delete ui;
 }
 
 
-void PhotoReporterAdminPanel::on_SignInButton_clicked()
+void PhotoJournalistAdminPanel::on_SignInButton_clicked()
 {
     std::string login = ui->LoginLineEdit->text().toStdString();
     std::string password = ui->PasswordLineEdit->text().toStdString();
@@ -27,7 +27,7 @@ void PhotoReporterAdminPanel::on_SignInButton_clicked()
     }
 }
 
-bool PhotoReporterAdminPanel::checkInput(std::string login, std::string password)
+bool PhotoJournalistAdminPanel::checkInput(std::string login, std::string password)
 {
     if(login == m_login && password == m_password)
         return true;
@@ -36,7 +36,7 @@ bool PhotoReporterAdminPanel::checkInput(std::string login, std::string password
     return false;
 }
 
-void PhotoReporterAdminPanel::createAdminWindow()
+void PhotoJournalistAdminPanel::createAdminWindow()
 {
     adminPanelWindow = new AdminPanel();
     adminPanelWindow->show();

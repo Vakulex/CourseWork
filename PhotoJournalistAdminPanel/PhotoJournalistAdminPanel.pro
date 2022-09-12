@@ -10,16 +10,16 @@ CONFIG += c++17
 
 SOURCES += \
     AdminPanel/adminpanel.cpp \
-    PhotoReporterAdminPanel/photoreporteradminpanel.cpp \
+    PhotoJournalistAdminPanel/PhotoJournalistAdminPanel.cpp \
     main.cpp \
 
 HEADERS += \
     AdminPanel/adminpanel.h \
-    PhotoReporterAdminPanel/photoreporteradminpanel.h \
+    PhotoJournalistAdminPanel/PhotoJournalistAdminPanel.h \
 
 FORMS += \
     AdminPanel/adminpanel.ui \
-    PhotoReporterAdminPanel/photoreporteradminpanel.ui \
+    PhotoJournalistAdminPanel/PhotoJournalistAdminPanel.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

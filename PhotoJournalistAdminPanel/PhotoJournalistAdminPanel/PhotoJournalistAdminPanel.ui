@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PhotoReporterAdminPanel</class>
- <widget class="QMainWindow" name="PhotoReporterAdminPanel">
+ <class>PhotoJournalistAdminPanel</class>
+ <widget class="QMainWindow" name="PhotoJournalistAdminPanel">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Sign In - PhotoReporter Admin Panel</string>
+   <string>Sign In - PhotoJournalist Admin Panel</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">

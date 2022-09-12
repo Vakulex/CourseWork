@@ -1,4 +1,4 @@
-#include "PhotoReporterAdminPanel/photoreporteradminpanel.h"
+#include "PhotoJournalistAdminPanel/PhotoJournalistAdminPanel.h"
 #include "AdminPanel/adminpanel.h"
 
 #include <QApplication>
@@ -8,7 +8,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    PhotoReporterAdminPanel w;
+    PhotoJournalistAdminPanel w;
 
     QFile file("../ThemeTemplate/SpyBot.qss");
     file.open(QFile::ReadOnly);

@@ -1,26 +1,26 @@
-#ifndef PHOTOREPORTERADMINPANEL_H
-#define PHOTOREPORTERADMINPANEL_H
+#ifndef PhotoJournalistAdminPanel_H
+#define PhotoJournalistAdminPanel_H
 
 #include <QMainWindow>
 #include <AdminPanel/adminpanel.h>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class PhotoReporterAdminPanel; }
+namespace Ui { class PhotoJournalistAdminPanel; }
 QT_END_NAMESPACE
 
-class PhotoReporterAdminPanel : public QMainWindow
+class PhotoJournalistAdminPanel : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    PhotoReporterAdminPanel(QWidget *parent = nullptr);
-    ~PhotoReporterAdminPanel();
+    PhotoJournalistAdminPanel(QWidget *parent = nullptr);
+    ~PhotoJournalistAdminPanel();
 
 private slots:
     void on_SignInButton_clicked();
 
 private:
-    Ui::PhotoReporterAdminPanel *ui;
+    Ui::PhotoJournalistAdminPanel *ui;
     AdminPanel *adminPanelWindow;
     std::string m_login = "admin", m_password = "123123";
 
@@ -28,4 +28,4 @@ private:
 
     void createAdminWindow();
 };
-#endif // PHOTOREPORTERADMINPANEL_H
+#endif // PhotoJournalistAdminPanel_H
