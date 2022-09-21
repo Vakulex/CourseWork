@@ -102,6 +102,9 @@
             <pointsize>16</pointsize>
            </font>
           </property>
+          <property name="placeholderText">
+           <string>Логін</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -128,6 +131,9 @@
           </property>
           <property name="echoMode">
            <enum>QLineEdit::Password</enum>
+          </property>
+          <property name="placeholderText">
+           <string>Пароль</string>
           </property>
          </widget>
         </item>

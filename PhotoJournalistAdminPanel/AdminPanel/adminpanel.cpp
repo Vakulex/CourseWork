@@ -6,6 +6,8 @@ AdminPanel::AdminPanel(QWidget *parent) :
     ui(new Ui::AdminPanel)
 {
     ui->setupUi(this);
+    setWindowState(Qt::WindowMaximized);
+    show();
 }
 
 AdminPanel::~AdminPanel()

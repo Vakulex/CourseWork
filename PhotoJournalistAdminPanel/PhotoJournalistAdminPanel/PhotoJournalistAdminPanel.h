@@ -22,9 +22,9 @@ private slots:
 private:
     Ui::PhotoJournalistAdminPanel *ui;
     AdminPanel *adminPanelWindow;
-    std::string m_login = "admin", m_password = "123123";
+    QString m_login, m_password;
 
-    bool checkInput(std::string, std::string);
+    bool checkInput(QString, QString);
 
     void createAdminWindow();
 };
