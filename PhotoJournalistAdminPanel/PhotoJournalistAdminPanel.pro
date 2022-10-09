@@ -1,4 +1,4 @@
-QT       += core gui
+QT += core gui
 QT += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -10,12 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     AdminPanel/adminpanel.cpp \
+    DatabaseManager/databasemanager.cpp \
     PhotoJournalistAdminPanel/PhotoJournalistAdminPanel.cpp \
     main.cpp \
 
 HEADERS += \
     AdminPanel/adminpanel.h \
-    PhotoJournalistAdminPanel/PhotoJournalistAdminPanel.h \
+    DatabaseManager/databasemanager.h \
+    PhotoJournalistAdminPanel/PhotoJournalistAdminPanel.h
 
 FORMS += \
     AdminPanel/adminpanel.ui \

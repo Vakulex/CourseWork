@@ -4,6 +4,7 @@
 #include <QSettings>
 #include <QFile>
 #include <QDebug>
+#include <QDir>
 
 PhotoJournalistAdminPanel::PhotoJournalistAdminPanel(QWidget *parent)
     : QMainWindow(parent)
@@ -11,17 +12,15 @@ PhotoJournalistAdminPanel::PhotoJournalistAdminPanel(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QString cfgPath = "D:/CourseWork/temp_PhotoJournalistAdminPanel//cfg/config.ini";
+    QSettings *settings = new QSettings(m_cfgPath, QSettings::IniFormat);
 
-    if(QFile(cfgPath).exists())
-    {
-        QSettings settings(QString(cfgPath), QSettings::IniFormat);
+    m_login = settings->value("user/login").toString();
+    m_password = settings->value("user/password").toString();
 
-        m_login = settings.value("user/login", "").toString();
-        m_password = settings.value("user/password", "").toString();
-    }
-    else
-        qDebug() << "config isn't found";
+    qDebug() << m_login;
+    qDebug() << m_password;
+    qDebug() << settings->value("user/login").toString();
+    qDebug() << settings->value("user/password").toString();
 }
 
 PhotoJournalistAdminPanel::~PhotoJournalistAdminPanel()
@@ -55,4 +54,9 @@ void PhotoJournalistAdminPanel::createAdminWindow()
     adminPanelWindow = new AdminPanel();
     adminPanelWindow->show();
     this->close();
+}
+
+void PhotoJournalistAdminPanel::setCfgPath(QString cfgPath)
+{
+    m_cfgPath = cfgPath;
 }
