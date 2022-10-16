@@ -1,6 +1,7 @@
 #ifndef ADMINPANEL_H
 #define ADMINPANEL_H
 
+#include "qsqltablemodel.h"
 #include <QMainWindow>
 
 namespace Ui {
@@ -17,6 +18,10 @@ public:
 
 private:
     Ui::AdminPanel *ui;
+    QSqlTableModel *model;
+    void initResources();
+    void createModel(QSqlTableModel*);
+    void WidgetSettings();
 };
 
 #endif // ADMINPANEL_H

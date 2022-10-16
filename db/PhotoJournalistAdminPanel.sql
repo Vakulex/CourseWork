@@ -6,7 +6,7 @@ CREATE TABLE if not exists users(
     users_surname varchar(32) NOT NULL,
     users_name varchar(32) NOT NULL,
     users_middle_name varchar(32) NOT NULL,
-    phone_number char(13) NOT NULL,
+    phone_number varchar(13) NOT NULL,
     PRIMARY KEY(users_ID)
 );
 
@@ -21,6 +21,7 @@ CREATE TABLE if not exists order_data(
     order_ID INT NOT NULL AUTO_INCREMENT,
     creation_date date NOT NULL,
     finalization_date date,
+    img BLOB,
     orders varchar(64) UNIQUE NOT NULL,
     adress text NOT NULL,
     order_price decimal NOT NULL,
@@ -45,4 +46,24 @@ CREATE TABLE if not exists orders_services(
     service_ID INT NOT NULL,
     FOREIGN KEY(order_ID) REFERENCES order_data(order_ID),
     FOREIGN KEY(service_ID) REFERENCES services(service_ID)
+);
+
+INSERT INTO users(users_surname, users_name, users_middle_name, phone_number) VALUES("Vakulenko", "Oleksii", "Dmytrovich", "+380365221763");
+INSERT INTO users_login(users_mail, users_password) VALUES("ssplayerosu@gmail.com", "123123");
+
+INSERT INTO order_data(
+    creation_date, 
+    finalization_date, 
+    orders, 
+    adress, 
+    order_price, 
+    order_status
+)
+VALUES (
+    "01.01.2022",
+    "12.01.2022",
+    "1232323",
+    "34343434",
+    "1111",
+    "done"
 );

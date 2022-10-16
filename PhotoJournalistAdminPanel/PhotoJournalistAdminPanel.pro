@@ -11,17 +11,14 @@ CONFIG += c++17
 SOURCES += \
     AdminPanel/adminpanel.cpp \
     DatabaseManager/databasemanager.cpp \
-    PhotoJournalistAdminPanel/PhotoJournalistAdminPanel.cpp \
     main.cpp \
 
 HEADERS += \
     AdminPanel/adminpanel.h \
-    DatabaseManager/databasemanager.h \
-    PhotoJournalistAdminPanel/PhotoJournalistAdminPanel.h
+    DatabaseManager/databasemanager.h
 
 FORMS += \
     AdminPanel/adminpanel.ui \
-    PhotoJournalistAdminPanel/PhotoJournalistAdminPanel.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -29,4 +26,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    cfg/config.ini
+    cfg/config.ini \
+    img/
+
+RESOURCES += \
+    resources.qrc

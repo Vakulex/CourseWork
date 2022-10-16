@@ -2,25 +2,37 @@
 
 DatabaseManager::DatabaseManager()
 {
-    createDatabase();
+
 }
 
-void DatabaseManager::createDatabase()
+void DatabaseManager::ConnectToDatabase()
 {
-    db = QSqlDatabase::addDatabase("MYSQL");
-    db.setHostName("192.168.0.77");
-    db.setUserName("root");
-    db.setPassword("123123");
-    db.setDatabaseName("photojournalist");
-    checkDatabaseConnection(db);
+    if(!db.open())
+    {
+        db = QSqlDatabase::addDatabase("QODBC");
+        db.setHostName("localhost");
+        db.setPort(3306);
+        db.setUserName("root");
+        db.setPassword("123123");
+        db.setDatabaseName("coursework");
+        checkDatabaseConnection();
+    }
+
+    return;
 }
 
-void DatabaseManager::checkDatabaseConnection(QSqlDatabase db)
+bool DatabaseManager::checkDatabaseConnection()
 {
     if(db.open())
+    {
         qDebug() << "Connected";
+        return true;
+    }
     else
+    {
         qDebug() << "Not connected";
+        return false;
+    }
 }
 
 void DatabaseManager::editDatabase(QSqlDatabase db, QString hostname, QString username, QString password, QString databaseName)
@@ -29,5 +41,7 @@ void DatabaseManager::editDatabase(QSqlDatabase db, QString hostname, QString us
     db.setUserName(username);
     db.setPassword(password);
     db.setDatabaseName(databaseName);
-    checkDatabaseConnection(db);
+    checkDatabaseConnection();
 }
+
+DatabaseManager DatabaseManager::s_Instance;
