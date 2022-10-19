@@ -9,16 +9,19 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AddDataWindow/adduserwindow.cpp \
     AdminPanel/adminpanel.cpp \
     DatabaseManager/databasemanager.cpp \
     main.cpp \
 
 HEADERS += \
+    AddDataWindow/adduserwindow.h \
     AdminPanel/adminpanel.h \
     DatabaseManager/databasemanager.h
 
 FORMS += \
-    AdminPanel/adminpanel.ui \
+    AddDataWindow/adduserwindow.ui \
+    AdminPanel/adminpanel.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

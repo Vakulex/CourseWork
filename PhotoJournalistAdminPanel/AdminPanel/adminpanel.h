@@ -20,7 +20,7 @@ private:
     Ui::AdminPanel *ui;
     QSqlTableModel *model;
     void initResources();
-    void createModel(QSqlTableModel*);
+    void createUserModel(QSqlTableModel*);
     void WidgetSettings();
 };
 
