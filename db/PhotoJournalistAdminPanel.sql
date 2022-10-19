@@ -10,13 +10,6 @@ CREATE TABLE if not exists users(
     PRIMARY KEY(users_ID)
 );
 
-CREATE TABLE if not exists users_login(
-    users_ID INT NOT NULL AUTO_INCREMENT,
-    users_mail varchar(320) NOT NULL,
-    users_password varchar(64) NOT NULL,
-    FOREIGN KEY(users_ID) REFERENCES users(users_ID)
-);
-
 CREATE TABLE if not exists order_data(
     order_ID INT NOT NULL AUTO_INCREMENT,
     creation_date date NOT NULL,
@@ -49,7 +42,8 @@ CREATE TABLE if not exists orders_services(
 );
 
 INSERT INTO users(users_surname, users_name, users_middle_name, phone_number) VALUES("Vakulenko", "Oleksii", "Dmytrovich", "+380365221763");
-INSERT INTO users_login(users_mail, users_password) VALUES("ssplayerosu@gmail.com", "123123");
+INSERT INTO users(users_surname, users_name, users_middle_name, phone_number) VALUES("Свадковский", "Даниил", "Валерьевич", "+123123123123");
+
 
 INSERT INTO order_data(
     creation_date, 

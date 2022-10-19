@@ -32,9 +32,9 @@
    <widget class="QPushButton" name="AddButton">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>60</y>
-      <width>111</width>
+      <x>10</x>
+      <y>520</y>
+      <width>381</width>
       <height>24</height>
      </rect>
     </property>
@@ -45,9 +45,9 @@
    <widget class="QPushButton" name="DeleteButton">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>90</y>
-      <width>111</width>
+      <x>10</x>
+      <y>550</y>
+      <width>381</width>
       <height>24</height>
      </rect>
     </property>
@@ -61,7 +61,7 @@
       <x>10</x>
       <y>10</y>
       <width>381</width>
-      <height>561</height>
+      <height>500</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -75,8 +75,8 @@
       <rect>
        <x>0</x>
        <y>50</y>
-       <width>381</width>
-       <height>511</height>
+       <width>380</width>
+       <height>450</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -109,15 +109,6 @@
      <property name="selectionBehavior">
       <enum>QAbstractItemView::SelectRows</enum>
      </property>
-     <property name="gridStyle">
-      <enum>Qt::SolidLine</enum>
-     </property>
-     <property name="sortingEnabled">
-      <bool>false</bool>
-     </property>
-     <attribute name="horizontalHeaderMinimumSectionSize">
-      <number>15</number>
-     </attribute>
     </widget>
     <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
@@ -177,9 +168,9 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>400</x>
       <y>10</y>
-      <width>271</width>
+      <width>390</width>
       <height>561</height>
      </rect>
     </property>
@@ -207,20 +198,18 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="ProfileMenu">
+   <widget class="QMenu" name="OptionsMenu">
     <property name="title">
-     <string>Профіль</string>
+     <string>Налаштування</string>
     </property>
     <addaction name="ProfileAction"/>
     <addaction name="OptionsAction"/>
+    <addaction name="separator"/>
+    <addaction name="DBOptionsAction"/>
+    <addaction name="AddService"/>
    </widget>
-   <addaction name="ProfileMenu"/>
+   <addaction name="OptionsMenu"/>
   </widget>
-  <action name="SaveAction">
-   <property name="text">
-    <string>Зберегти</string>
-   </property>
-  </action>
   <action name="ProfileAction">
    <property name="text">
     <string>Налаштування профілю</string>
@@ -229,6 +218,16 @@
   <action name="OptionsAction">
    <property name="text">
     <string>Налаштування програми</string>
+   </property>
+  </action>
+  <action name="AddService">
+   <property name="text">
+    <string>Додати послугу</string>
+   </property>
+  </action>
+  <action name="DBOptionsAction">
+   <property name="text">
+    <string>Налаштування бази даних</string>
    </property>
   </action>
  </widget>

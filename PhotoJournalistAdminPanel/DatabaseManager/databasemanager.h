@@ -2,26 +2,24 @@
 #define DATABASEMANAGER_H
 #include <QtSql>
 #include <QSqlDatabase>
+#include <qmessagebox.h>
 
 class DatabaseManager
 {
 private:
-    QSqlDatabase db;
+    QSqlDatabase m_db;
     DatabaseManager();
-    static DatabaseManager s_Instance;
+    static DatabaseManager* s_Instance;
 
 public:
-    DatabaseManager(const DatabaseManager&) = delete;
+    DatabaseManager(DatabaseManager &other) = delete;
+    void operator=(const DatabaseManager &) = delete;
 
-    static DatabaseManager& Get()
-    {
-        return s_Instance;
-    }
+    static DatabaseManager *GetInstance();
 
     void ConnectToDatabase();
     bool checkDatabaseConnection();
-    void editDatabase(QSqlDatabase, QString, QString, QString, QString);
-
+    void editDatabase(QString, QString, QString, QString);
 };
 
 #endif // DATABASEMANAGER_H
