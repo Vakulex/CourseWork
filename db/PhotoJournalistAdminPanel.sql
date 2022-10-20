@@ -30,8 +30,7 @@ CREATE TABLE if not exists services(
     type_service varchar(32) NOT NULL,
     service_price decimal NOT NULL,
     commentary text,
-    PRIMARY KEY(service_id),
-    FOREIGN KEY(service_ID) REFERENCES order_data(order_ID)
+    PRIMARY KEY(service_id)
 );
 
 CREATE TABLE if not exists orders_services(
@@ -42,7 +41,7 @@ CREATE TABLE if not exists orders_services(
 );
 
 INSERT INTO users(users_surname, users_name, users_middle_name, phone_number) VALUES("Vakulenko", "Oleksii", "Dmytrovich", "+380365221763");
-INSERT INTO users(users_surname, users_name, users_middle_name, phone_number) VALUES("Свадковский", "Даниил", "Валерьевич", "+123123123123");
+INSERT INTO users(users_surname, users_name, users_middle_name, phone_number) VALUES("", "Даниил", "Валерьевич", "+123123123123");
 
 
 INSERT INTO order_data(

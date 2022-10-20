@@ -22,7 +22,7 @@ private slots:
 
 private:
     Ui::AddService *ui;
-    QSqlQuery *query;
+    QSqlQuery query;
     bool CheckFields();
 };
 

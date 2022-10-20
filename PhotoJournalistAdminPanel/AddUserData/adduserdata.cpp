@@ -1,4 +1,5 @@
 #include "adduserdata.h"
+#include "qsqlquerymodel.h"
 #include "ui_adduserdata.h"
 
 AddUserData::AddUserData(QWidget *parent) :
@@ -9,6 +10,12 @@ AddUserData::AddUserData(QWidget *parent) :
     ui->EndOrderDate->setEnabled(false);
     ui->PhotoPathLineEdit->setEnabled(false);
 
+    QSqlQueryModel model;
+
+    QSqlQuery query;
+    query.prepare("select name_service from services");
+    query.exec();
+    ui->ServiceComboBox->setModel(&model);
 }
 
 AddUserData::~AddUserData()

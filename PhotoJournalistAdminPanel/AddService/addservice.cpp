@@ -15,10 +15,17 @@ AddService::~AddService()
 
 void AddService::on_AddServiceButton_clicked()
 {
-    query->prepare("INSERT into services(name_service, type_service, service_price, commentary) "
-                   "VALUES (" + ui->ServiceTitleLineEdit->text() + "," + ui->ServiceTypeComboBox->currentText() + "," + ui->PriceSpinBox->text() + "," + ui->CommentaryTextEdit->toPlainText() + ");");
+    query.prepare("INSERT into services(name_service, type_service, service_price, commentary) "
+                   "VALUES (?, ?, ?, ?);");
+    query.addBindValue(ui->ServiceTitleLineEdit->text());
+    query.addBindValue(ui->ServiceTypeComboBox->currentText());
+    query.addBindValue(ui->PriceSpinBox->text());
+    query.addBindValue(ui->CommentaryTextEdit->text());
     if(CheckFields())
-        query->exec();
+    {
+        if(query.exec())
+            QMessageBox::information(this, "Успішно", "Додавання послуги пройшло успішно", QMessageBox::StandardButton());
+    }
     AddService::~AddService();
 }
 

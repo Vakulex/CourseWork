@@ -27,9 +27,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="1">
-     <widget class="QTextEdit" name="CommentaryTextEdit"/>
-    </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
@@ -37,11 +34,12 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="PriceLineEdit"/>
-    </item>
     <item row="1" column="1">
-     <widget class="QComboBox" name="ServiceTypeComboBox"/>
+     <widget class="QComboBox" name="ServiceTypeComboBox">
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_3">
@@ -71,6 +69,16 @@
      <widget class="QPushButton" name="AddServiceButton">
       <property name="text">
        <string>Додати</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="CommentaryTextEdit"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QSpinBox" name="PriceSpinBox">
+      <property name="maximum">
+       <number>999999</number>
       </property>
      </widget>
     </item>
