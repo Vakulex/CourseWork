@@ -29,39 +29,13 @@
    <string>Photo Journalist Admin Panel</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="AddButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>520</y>
-      <width>381</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Додати</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="DeleteButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>550</y>
-      <width>381</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Видалити</string>
-    </property>
-   </widget>
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
       <width>381</width>
-      <height>500</height>
+      <height>471</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -74,9 +48,9 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>50</y>
+       <y>30</y>
        <width>380</width>
-       <height>450</height>
+       <height>441</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -110,83 +84,155 @@
       <enum>QAbstractItemView::SelectRows</enum>
      </property>
     </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget">
+    <widget class="QLineEdit" name="SearchLineEdit">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
        <width>381</width>
-       <height>51</height>
+       <height>24</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLineEdit" name="SearchLineEdit">
-        <property name="maximumSize">
-         <size>
-          <width>550</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="placeholderText">
-         <string>🔍 Пошук</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="SortingComboBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="currentText">
-         <string/>
-        </property>
-        <property name="placeholderText">
-         <string>Сортування</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="FilterComboBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="placeholderText">
-         <string>Фільтри</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <property name="maximumSize">
+      <size>
+       <width>550</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="placeholderText">
+      <string>🔍 Пошук</string>
+     </property>
     </widget>
    </widget>
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>490</y>
+      <width>781</width>
+      <height>86</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="AddButton">
+       <property name="text">
+        <string>Додати</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="UpdateButton">
+       <property name="text">
+        <string>Оновити</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="DeleteButton">
+       <property name="text">
+        <string>Видалити</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
       <x>400</x>
       <y>10</y>
-      <width>390</width>
-      <height>561</height>
+      <width>391</width>
+      <height>471</height>
      </rect>
     </property>
-    <property name="currentIndex">
-     <number>0</number>
+    <property name="title">
+     <string>Облікові дані</string>
     </property>
-    <widget class="QWidget" name="OrderDataTab">
-     <attribute name="title">
-      <string>Облікові дані</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="PhotoTab">
-     <attribute name="title">
-      <string>Фото</string>
-     </attribute>
-    </widget>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="8" column="0" colspan="2">
+      <widget class="QPushButton" name="EditButton">
+       <property name="text">
+        <string>Змінити</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Посилання на Google Drive</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="PhotoPathLineEdit"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Послуга</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QCheckBox" name="statusCheckBox">
+       <property name="text">
+        <string>Статус замовлення</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Адреса</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Дата оформлення замовлення</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QDateEdit" name="StartDate">
+       <property name="displayFormat">
+        <string>yyyy-MM-dd</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Дата виконання замовлення</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="AdressLineEdit"/>
+     </item>
+     <item row="4" column="1">
+      <widget class="QComboBox" name="ServiceComboBox"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QDateEdit" name="EndDate">
+       <property name="displayFormat">
+        <string>yyyy-MM-dd</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Ціна</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="PriceLineEdit"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -207,6 +253,7 @@
     <addaction name="separator"/>
     <addaction name="DBOptionsAction"/>
     <addaction name="AddService"/>
+    <addaction name="DeleteService"/>
    </widget>
    <addaction name="OptionsMenu"/>
   </widget>
@@ -228,6 +275,11 @@
   <action name="DBOptionsAction">
    <property name="text">
     <string>Налаштування бази даних</string>
+   </property>
+  </action>
+  <action name="DeleteService">
+   <property name="text">
+    <string>Видалити послугу</string>
    </property>
   </action>
  </widget>

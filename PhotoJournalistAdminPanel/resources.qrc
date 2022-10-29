@@ -6,5 +6,6 @@
         <file>img/filter_icon.png</file>
         <file>img/b_gear_icon.png</file>
         <file>img/b_save_icon.png</file>
+        <file>img/b_refresh_icon.png</file>
     </qresource>
 </RCC>

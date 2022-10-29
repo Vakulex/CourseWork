@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddUserData</class>
+ <widget class="QMainWindow" name="AddUserData">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>680</width>
+    <height>380</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Додати клієнтів</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="7" column="2">
+     <widget class="QLineEdit" name="PhotoPathLineEdit">
+      <property name="placeholderText">
+       <string>Посилання на Google Drive</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="2">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>Ціна послуги: </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="PriceLabel">
+        <property name="font">
+         <font>
+          <pointsize>18</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_11">
+        <property name="maximumSize">
+         <size>
+          <width>40</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>грн.</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="11" column="2">
+     <widget class="QLabel" name="ErrorLabel">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="2">
+     <widget class="QLabel" name="label_8">
+      <property name="text">
+       <string>Фото</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QDateEdit" name="EndOrderDate">
+      <property name="minimumDate">
+       <date>
+        <year>2022</year>
+        <month>9</month>
+        <day>14</day>
+       </date>
+      </property>
+      <property name="displayFormat">
+       <string>yyyy-MM-dd</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QLabel" name="label_9">
+      <property name="text">
+       <string>Послуги</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>Кінець виконання замовлення</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QLineEdit" name="AdressLineEdit">
+      <property name="maxLength">
+       <number>64</number>
+      </property>
+      <property name="placeholderText">
+       <string>Адреса</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>Адреса</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2">
+     <widget class="QComboBox" name="ServiceComboBox">
+      <property name="currentText">
+       <string/>
+      </property>
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+      <property name="maxVisibleItems">
+       <number>12</number>
+      </property>
+      <property name="placeholderText">
+       <string>Послуги</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="2">
+     <widget class="QCheckBox" name="StatusCheckBox">
+      <property name="text">
+       <string>Статус замовлення</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="2">
+     <widget class="QPushButton" name="AddUserButton">
+      <property name="text">
+       <string>Додати</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLineEdit" name="MiddleNameLineEdit">
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>32</number>
+      </property>
+      <property name="placeholderText">
+       <string>По-батькові</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>По-батькові</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLineEdit" name="NameLineEdit">
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>32</number>
+      </property>
+      <property name="placeholderText">
+       <string>Ім'я</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Ім'я</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLineEdit" name="SurnameLineEdit">
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>32</number>
+      </property>
+      <property name="placeholderText">
+       <string>Прізвище</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Прізвище</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>Номер телефону</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLineEdit" name="PhoneNumberLineEdit">
+      <property name="placeholderText">
+       <string>096123456789</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Дата оформлення замовлення</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QDateEdit" name="StartDateEdit">
+      <property name="minimumDate">
+       <date>
+        <year>2022</year>
+        <month>9</month>
+        <day>14</day>
+       </date>
+      </property>
+      <property name="displayFormat">
+       <string>yyyy-MM-dd</string>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1" rowspan="9">
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

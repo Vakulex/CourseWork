@@ -14,6 +14,7 @@ SOURCES += \
     AdminPanel/adminpanel.cpp \
     DBOptions/databaseoptions.cpp \
     DatabaseManager/databasemanager.cpp \
+    DeleteServices/deleteservices.cpp \
     main.cpp \
 
 HEADERS += \
@@ -21,13 +22,15 @@ HEADERS += \
     AddUserData/adduserdata.h \
     AdminPanel/adminpanel.h \
     DBOptions/databaseoptions.h \
-    DatabaseManager/databasemanager.h
+    DatabaseManager/databasemanager.h \
+    DeleteServices/deleteservices.h
 
 FORMS += \
     AddService/addservice.ui \
     AddUserData/adduserdata.ui \
     AdminPanel/adminpanel.ui \
-    DBOptions/databaseoptions.ui
+    DBOptions/databaseoptions.ui \
+    DeleteServices/deleteservices.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

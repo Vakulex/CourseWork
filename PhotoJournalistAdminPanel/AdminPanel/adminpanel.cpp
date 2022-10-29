@@ -25,6 +25,8 @@ void AdminPanel::initResources()
 {
     ui->AddButton->setIcon(QIcon(":/icons/img/b_plus_icon.png"));
     ui->DeleteButton->setIcon(QIcon(":/icons/img/b_minus_icon.png"));
+    ui->UpdateButton->setIcon(QIcon(":/icons/img/b_refresh_icon.png"));
+
     ui->OptionsMenu->setIcon(QIcon(":/icons/img/b_gear_icon.png"));
     ui->ProfileAction->setIcon(QIcon(":/icons/img/b_user_icon.png"));
     ui->OptionsAction->setIcon(QIcon(":/icons/img/b_gear_icon.png"));
@@ -42,7 +44,6 @@ void AdminPanel::createUserModel(QSqlTableModel *model)
     model->setHeaderData(4, Qt::Horizontal, tr("Номер телефону"));
 
     ui->UsersTable->setModel(model);
-    //ui->UsersTable->hideColumn(0);
 }
 
 void AdminPanel::WidgetSettings()
@@ -55,6 +56,8 @@ void AdminPanel::on_AddButton_clicked()
 {
     AddUserData *window = new AddUserData;
     window->show();
+    if(window->isHidden())
+        model->select();
 }
 
 void AdminPanel::on_AddService_triggered()
@@ -62,7 +65,6 @@ void AdminPanel::on_AddService_triggered()
     AddService *window = new AddService();
     window->show();
 }
-
 
 void AdminPanel::on_DBOptionsAction_triggered()
 {
@@ -74,7 +76,7 @@ void AdminPanel::on_DeleteButton_clicked()
 {
     QSqlQuery query;
     QModelIndex index;
-    if(QMessageBox::question(this, "Видалення об'єкту", "Ви впевнені, що -хочите видалити обраний елемент?",
+    if(QMessageBox::question(this, "Видалення об'єкту", "Ви впевнені, що хочете видалити обраного користувача?",
                                         QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
     {
         index = ui->UsersTable->selectionModel()->currentIndex();
@@ -84,4 +86,29 @@ void AdminPanel::on_DeleteButton_clicked()
     }
 
     model->select();
+}
+
+void AdminPanel::on_UpdateButton_clicked()
+{
+    model->select();
+}
+
+void AdminPanel::on_DeleteService_triggered()
+{
+    DeleteServices *window = new DeleteServices();
+    window->show();
+}
+
+void AdminPanel::on_UsersTable_clicked(const QModelIndex &index)
+{
+    QSqlQueryModel *orderModel = new QSqlQueryModel;
+    orderModel->setQuery("SELECT * from order_data WHERE users_ID = " + QString::number(index.row()));
+    ui->StartDate->setDate(orderModel->index(index.row(), 1).data().toDate());
+    ui->ServiceComboBox->setCurrentText(orderModel->index(index.row(), 4).data().toString());
+    ui->AdressLineEdit->setText(orderModel->index(index.row(), 5).data().toString());
+    ui->PriceLineEdit->setText(orderModel->index(index.row(), 6).data().toString());
+    ui->statusCheckBox->setChecked(orderModel->index(index.row(), 7).data().toBool());
+
+    ui->StartDate->setDate(orderModel->index(index.row(), 2).data().toDate());
+    ui->StartDate->setDate(orderModel->index(index.row(), 3).data().toDate());
 }

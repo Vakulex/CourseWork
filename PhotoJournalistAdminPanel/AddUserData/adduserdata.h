@@ -2,7 +2,10 @@
 #define ADDUSERDATA_H
 
 #include <QMainWindow>
+#include "qsqlquerymodel.h"
 #include "qsqlquery.h"
+#include "AddService/addservice.h"
+#include <QCloseEvent>
 
 namespace Ui {
 class AddUserData;
@@ -18,14 +21,18 @@ public:
 
 private slots:
     void on_StatusCheckBox_toggled(bool checked);
-
     void on_AddUserButton_clicked();
+
+    void on_ServiceComboBox_currentIndexChanged(int index);
 
 private:
     Ui::AddUserData *ui;
-    bool CheckNulls();
-    bool CheckFields();
-    bool CheckFieldsAfterCheckBox();
+    void setValidFields();
+    void initComboBox();
+    bool checkIncorrectFields();
+    bool checkIncorrectFields(bool);
+    void addUser();
+    QString calculatePrice(int);
 };
 
 #endif // ADDUSERDATA_H

@@ -6,6 +6,11 @@ AddService::AddService(QWidget *parent) :
     ui(new Ui::AddService)
 {
     ui->setupUi(this);
+
+
+    QSqlQueryModel *model = new QSqlQueryModel;
+    model->setQuery("select type_service from services");
+    ui->ServiceTypeComboBox->setModel(model);
 }
 
 AddService::~AddService()
