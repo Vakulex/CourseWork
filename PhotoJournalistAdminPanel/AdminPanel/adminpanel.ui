@@ -35,7 +35,7 @@
       <x>10</x>
       <y>10</y>
       <width>381</width>
-      <height>471</height>
+      <height>451</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -50,7 +50,7 @@
        <x>0</x>
        <y>30</y>
        <width>380</width>
-       <height>441</height>
+       <height>421</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -108,9 +108,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>490</y>
+      <y>470</y>
       <width>781</width>
-      <height>86</height>
+      <height>100</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -143,7 +143,7 @@
       <x>400</x>
       <y>10</y>
       <width>391</width>
-      <height>471</height>
+      <height>451</height>
      </rect>
     </property>
     <property name="title">
@@ -213,7 +213,13 @@
       <widget class="QLineEdit" name="AdressLineEdit"/>
      </item>
      <item row="4" column="1">
-      <widget class="QComboBox" name="ServiceComboBox"/>
+      <widget class="QComboBox" name="ServiceComboBox">
+       <item>
+        <property name="text">
+         <string>Новый элемент</string>
+        </property>
+       </item>
+      </widget>
      </item>
      <item row="1" column="1">
       <widget class="QDateEdit" name="EndDate">

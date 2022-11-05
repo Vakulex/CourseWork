@@ -27,7 +27,7 @@ class AdminPanel : public QMainWindow
 public:
     explicit AdminPanel(QWidget *parent = nullptr);
     ~AdminPanel();
-    QSqlTableModel *model;
+
 private slots:
     void on_AddButton_clicked();
     void on_AddService_triggered();
@@ -38,11 +38,18 @@ private slots:
 
     void on_DeleteService_triggered();
     void on_UsersTable_clicked(const QModelIndex &index);
+
+    void on_EditButton_clicked();
+
 private:
     Ui::AdminPanel *ui;
+    QSqlTableModel *model;
+
     void initResources();
-    void createUserModel(QSqlTableModel*);
+    void updateTable();
+    void initCombobox();
     void WidgetSettings();
+    bool linesIsNotEmpty();
 };
 
 #endif // ADMINPANEL_H

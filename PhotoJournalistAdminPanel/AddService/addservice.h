@@ -22,7 +22,7 @@ private slots:
 
 private:
     Ui::AddService *ui;
-    QSqlQuery query;
+    void initCombobox();
     bool CheckFields();
 };
 

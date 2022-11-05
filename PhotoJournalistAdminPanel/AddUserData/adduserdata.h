@@ -23,16 +23,17 @@ private slots:
     void on_StatusCheckBox_toggled(bool checked);
     void on_AddUserButton_clicked();
 
-    void on_ServiceComboBox_currentIndexChanged(int index);
+    void on_ServiceComboBox_textActivated(const QString &arg1);
 
 private:
     Ui::AddUserData *ui;
     void setValidFields();
     void initComboBox();
     bool checkIncorrectFields();
-    bool checkIncorrectFields(bool);
     void addUser();
     QString calculatePrice(int);
+
+    int service_id = 0;
 };
 
 #endif // ADDUSERDATA_H

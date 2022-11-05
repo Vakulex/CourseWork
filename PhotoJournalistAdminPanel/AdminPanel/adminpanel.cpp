@@ -1,7 +1,4 @@
 #include "AdminPanel/adminpanel.h"
-#include "QModelIndex"
-#include "QAbstractItemModel"
-#include "QDebug"
 
 AdminPanel::AdminPanel(QWidget *parent) :
     QMainWindow(parent),
@@ -11,9 +8,11 @@ AdminPanel::AdminPanel(QWidget *parent) :
 
     DatabaseManager::GetInstance()->ConnectToDatabase();
     model = new QSqlTableModel();
-    createUserModel(model);
+
+    updateTable();
     WidgetSettings();
     initResources();
+    initCombobox();
 }
 
 AdminPanel::~AdminPanel()
@@ -32,7 +31,7 @@ void AdminPanel::initResources()
     ui->OptionsAction->setIcon(QIcon(":/icons/img/b_gear_icon.png"));
 }
 
-void AdminPanel::createUserModel(QSqlTableModel *model)
+void AdminPanel::updateTable()
 {
     model->setTable("users");
     model->select();
@@ -44,6 +43,8 @@ void AdminPanel::createUserModel(QSqlTableModel *model)
     model->setHeaderData(4, Qt::Horizontal, tr("Номер телефону"));
 
     ui->UsersTable->setModel(model);
+    ui->UsersTable->hideColumn(0);
+    initCombobox();
 }
 
 void AdminPanel::WidgetSettings()
@@ -56,8 +57,6 @@ void AdminPanel::on_AddButton_clicked()
 {
     AddUserData *window = new AddUserData;
     window->show();
-    if(window->isHidden())
-        model->select();
 }
 
 void AdminPanel::on_AddService_triggered()
@@ -74,23 +73,23 @@ void AdminPanel::on_DBOptionsAction_triggered()
 
 void AdminPanel::on_DeleteButton_clicked()
 {
-    QSqlQuery query;
-    QModelIndex index;
     if(QMessageBox::question(this, "Видалення об'єкту", "Ви впевнені, що хочете видалити обраного користувача?",
                                         QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
     {
-        index = ui->UsersTable->selectionModel()->currentIndex();
-        QVariant value = index.sibling(index.row(), 0).data();
-        query.prepare("Delete from users where users_ID=" + value.toString());
-        query.exec();
-    }
+        QModelIndex index = ui->UsersTable->selectionModel()->currentIndex();
+        QString id = index.sibling(index.row(), 0).data().toString();
+        QSqlQuery query;
 
-    model->select();
+        query.exec("Delete from order_data where users_ID = " + id);
+        query.exec("Delete from users where users_ID = " + id);
+
+        updateTable();
+    }
 }
 
 void AdminPanel::on_UpdateButton_clicked()
 {
-    model->select();
+    updateTable();
 }
 
 void AdminPanel::on_DeleteService_triggered()
@@ -99,16 +98,93 @@ void AdminPanel::on_DeleteService_triggered()
     window->show();
 }
 
+void AdminPanel::initCombobox()
+{
+    QStringList status;
+
+    QSqlQuery query;
+    query.exec("select * from services");
+    while (query.next())
+    {
+        QSqlRecord recorder = query.record();
+        status.append(recorder.value("name_service").toString());
+    }
+
+    ui->ServiceComboBox->clear();
+    ui->ServiceComboBox->addItems(status);
+}
+
 void AdminPanel::on_UsersTable_clicked(const QModelIndex &index)
 {
-    QSqlQueryModel *orderModel = new QSqlQueryModel;
-    orderModel->setQuery("SELECT * from order_data WHERE users_ID = " + QString::number(index.row()));
-    ui->StartDate->setDate(orderModel->index(index.row(), 1).data().toDate());
-    ui->ServiceComboBox->setCurrentText(orderModel->index(index.row(), 4).data().toString());
-    ui->AdressLineEdit->setText(orderModel->index(index.row(), 5).data().toString());
-    ui->PriceLineEdit->setText(orderModel->index(index.row(), 6).data().toString());
-    ui->statusCheckBox->setChecked(orderModel->index(index.row(), 7).data().toBool());
+    QSqlQuery query;
+    query.prepare("select * from order_data INNER JOIN services ON order_data.service_ID = services.service_ID where users_ID = " + ui->UsersTable->model()->index(index.row(),0).data().toString());
+    query.exec();
+    query.next();
 
-    ui->StartDate->setDate(orderModel->index(index.row(), 2).data().toDate());
-    ui->StartDate->setDate(orderModel->index(index.row(), 3).data().toDate());
+    QSqlRecord record = query.record();
+
+    ui->StartDate->setDate(QDate::fromString(record.value("creation_date").toString(), "yyyy-MM-dd"));
+    ui->ServiceComboBox->setCurrentText(record.value("name_service").toString());
+    ui->AdressLineEdit->setText(record.value("adress").toString());
+    ui->PriceLineEdit->setText(record.value("order_price").toString());
+    ui->statusCheckBox->setChecked(record.value("order_status").toBool());
+
+    if(ui->statusCheckBox->isChecked())
+    {
+        ui->EndDate->setEnabled(true);
+        ui->PhotoPathLineEdit->setEnabled(true);
+        ui->EndDate->setDate(QDate::fromString(record.value("finalization_date").toString(), "yyyy-MM-dd"));
+        ui->PhotoPathLineEdit->setText(record.value("img").toString());
+    }
+    else
+    {
+        ui->EndDate->setEnabled(false);
+        ui->PhotoPathLineEdit->setEnabled(false);
+    }
 }
+
+bool AdminPanel::linesIsNotEmpty()
+{
+    return !ui->StartDate->text().isEmpty() &&
+           !ui->EndDate->text().isEmpty() &&
+           !ui->PriceLineEdit->text().isEmpty() &&
+           !ui->PhotoPathLineEdit->text().isEmpty() &&
+           !ui->AdressLineEdit->text().isEmpty() &&
+           !ui->ServiceComboBox->itemText(-1).contains("Послуги") &&
+           !ui->EndDate->date().isNull() &&
+           !ui->PhotoPathLineEdit->text().isEmpty();
+}
+
+void AdminPanel::on_EditButton_clicked()
+{
+    if(linesIsNotEmpty())
+    {
+        int serviceId = 0;
+        int userId = 0;
+
+        QSqlQuery query;
+        query.exec("SELECT service_ID from services where type_service = " + ui->ServiceComboBox->currentText());
+        while(query.next())
+        {
+            QSqlRecord recorder = query.record();
+            serviceId = recorder.value("service_ID").toInt();
+        }
+
+        QModelIndex index = ui->UsersTable->selectionModel()->currentIndex();
+        userId = index.sibling(index.row(), 0).data().toInt();
+
+
+        QString request = "UPDATE order_data SET creation_date = '%1', finalization_date = '%2', img = '%3', adress = '%4', order_price = '%5', service_ID = %6 where users_ID = %7";
+        request = request.arg(ui->StartDate->text(), ui->EndDate->text(), ui->PhotoPathLineEdit->text(), ui->AdressLineEdit->text(), ui->PriceLineEdit->text(), QString::number(serviceId), QString::number(userId));
+
+        if(query.exec(request))
+            QMessageBox::warning(this, "Вдало", "Данні були змінені!");
+        else
+            QMessageBox::warning(this, "Помилка", "Помилка запросу!");
+    }
+    else
+    {
+        QMessageBox::warning(this, "Помилка", "Впищіть всі значення!");
+    }
+}
+

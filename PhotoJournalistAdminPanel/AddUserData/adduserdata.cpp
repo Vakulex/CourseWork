@@ -40,89 +40,98 @@ void AddUserData::setValidFields()
 
 void AddUserData::initComboBox()
 {
-    QSqlQueryModel *model = new QSqlQueryModel;
-    model->setQuery("select name_service from services");
-    ui->ServiceComboBox->setModel(model);
+    QStringList status;
+
+    QSqlQuery query;    
+    query.exec("select * from services");
+    while (query.next())
+    {
+        QSqlRecord recorder = query.record();
+        status.append(recorder.value("name_service").toString());
+    }
+
+    ui->ServiceComboBox->addItems(status);
 }
 
 bool AddUserData::checkIncorrectFields()
 {
-    //return false if incorrect
-    return !ui->NameLineEdit->text().isEmpty() &&
-           !ui->MiddleNameLineEdit->text().isEmpty() &&
-           !ui->SurnameLineEdit->text().isEmpty() &&
-           !ui->PhoneNumberLineEdit->text().isEmpty() &&
-           !ui->AdressLineEdit->text().isEmpty() &&
-           !ui->ServiceComboBox->itemText(-1).contains("Послуги") &&
-           !ui->PriceLabel->text().isEmpty() &&
-           !ui->StartDateEdit->date().isNull();
-}
+    bool correct = !ui->NameLineEdit->text().isEmpty() &&
+                !ui->MiddleNameLineEdit->text().isEmpty() &&
+                !ui->SurnameLineEdit->text().isEmpty() &&
+                !ui->PhoneNumberLineEdit->text().isEmpty() &&
+                !ui->AdressLineEdit->text().isEmpty() &&
+                !ui->ServiceComboBox->itemText(-1).contains("Послуги") &&
+                !ui->PriceLabel->text().isEmpty() &&
+                !ui->StartDateEdit->date().isNull();
 
-bool AddUserData::checkIncorrectFields(bool isChecked)
-{
-    if(isChecked)
-        return !ui->EndOrderDate->date().isNull() &&
-               !(ui->EndOrderDate->date() >= ui->StartDateEdit->date()) &&
-               !ui->PhotoPathLineEdit->text().isEmpty();
-    else
-        return true;
+    if(ui->StatusCheckBox->isChecked())
+    {
+        correct = correct &&
+                  !ui->EndOrderDate->date().isNull() &&
+                  (ui->EndOrderDate->date() >= ui->StartDateEdit->date()) &&
+                  !ui->PhotoPathLineEdit->text().isEmpty();
+    }
+
+    return correct;
 }
 
 void AddUserData::addUser()
 {
     QSqlQuery query_user;
     query_user.prepare("INSERT INTO users(users_name, users_middle_name, users_surname, phone_number)"
-                       "VALUES(:name, :midname, :surname, :p_num); ");
-    query_user.bindValue(":name",    ui->NameLineEdit->text());
-    query_user.bindValue(":midname", ui->MiddleNameLineEdit->text());
-    query_user.bindValue(":surname", ui->SurnameLineEdit->text());
+                       "VALUES(:name, :midname, :surname, :p_num)");
+    query_user.bindValue(":name",          ui->NameLineEdit->text());
+    query_user.bindValue(":midname",       ui->MiddleNameLineEdit->text());
+    query_user.bindValue(":surname",       ui->SurnameLineEdit->text());
     query_user.bindValue(":p_num", "+38" + ui->PhoneNumberLineEdit->text());
     query_user.exec();
 
+    int user_id = query_user.lastInsertId().toUInt();
+
     QSqlQuery order_query;
-    order_query.prepare("INSERT INTO order_data(creation_date, finalization_date, img, orders, adress, order_price, order_status, users_ID) "
-                        "VALUES(:s_date, :f_date, :img, :orders, :adress, :price, :status, (SELECT users_ID from users WHERE users_ID = LAST_INSERT_ID()));");
+    order_query.prepare("INSERT INTO order_data(creation_date, finalization_date, img, adress, order_price, order_status, users_ID, service_ID) "
+                        "VALUES(:s_date, :f_date, :img, :adress, :price, :status, :user_id, :service)");
     order_query.bindValue(":s_date", ui->StartDateEdit->text());
-    order_query.bindValue(":orders", ui->ServiceComboBox->currentText());
+
     order_query.bindValue(":adress", ui->AdressLineEdit->text());
-    order_query.bindValue(":price",  ui->PriceLabel->text());
+    order_query.bindValue(":price",  ui->PriceLabel->text().toInt());
     order_query.bindValue(":status", ui->StatusCheckBox->isChecked());
+    order_query.bindValue(":user_id", user_id);
+    order_query.bindValue(":service", service_id);
+
+
     if(ui->StatusCheckBox->isChecked())
     {
         order_query.bindValue(":f_date", ui->EndOrderDate->text());
-        order_query.bindValue(":f_date", ui->PhotoPathLineEdit->text());
+        order_query.bindValue(":img", ui->PhotoPathLineEdit->text());
     }
-    else
-    {
-        order_query.bindValue(":f_date", QVariant(QVariant::String));
-        order_query.bindValue(":img", QVariant(QVariant::String));
-    }
+
     order_query.exec();
 }
 
-QString AddUserData::calculatePrice(int index)
-{
-    QSqlQuery query;
-    QSqlQueryModel *model = new QSqlQueryModel;
-    query.prepare("SELECT * FROM services WHERE name_service = :name;");
-    query.bindValue(":name", ui->ServiceComboBox->itemText(index));
-    query.exec();
-    model->setQuery(query);
-    QString str = model->record(0).value(3).toString();
-    return str;
-}
 
 void AddUserData::on_AddUserButton_clicked()
 {
-    if(checkIncorrectFields() && checkIncorrectFields(ui->StatusCheckBox->isChecked()))
+    qDebug() << checkIncorrectFields();
+
+    if(checkIncorrectFields())
     {
         addUser();
         this->close();
     }
 }
 
-void AddUserData::on_ServiceComboBox_currentIndexChanged(int index)
+void AddUserData::on_ServiceComboBox_textActivated(const QString &arg1)
 {
-    ui->PriceLabel->setText(calculatePrice(index));
+    QSqlQuery query;
+    query.prepare("SELECT service_ID, service_price FROM services WHERE name_service = :name;");
+    query.bindValue(":name", arg1);
+    query.exec();
+    query.next();
+
+    QSqlRecord record = query.record();
+
+    ui->PriceLabel->setText(record.value("service_price").toString());
+    service_id = record.value("service_ID").toInt();
 }
 
