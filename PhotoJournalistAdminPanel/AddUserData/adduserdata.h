@@ -11,7 +11,7 @@ namespace Ui {
 class AddUserData;
 }
 
-class AddUserData : public QMainWindow
+class AddUserData : public QDialog
 {
     Q_OBJECT
 

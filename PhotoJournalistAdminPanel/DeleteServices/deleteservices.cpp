@@ -19,9 +19,6 @@ DeleteServices::DeleteServices(QWidget *parent) :
     model->setHeaderData(4, Qt::Horizontal, tr("Коментар"));
 
     ui->ServicesTableView->setModel(model);
-
-    ui->ServicesTableView->horizontalHeader()->setStretchLastSection(true);
-
     ui->DeleteButton->setIcon(QIcon(":/icons/img/b_minus_icon.png"));
 }
 

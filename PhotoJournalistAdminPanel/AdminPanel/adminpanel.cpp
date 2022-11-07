@@ -55,8 +55,11 @@ void AdminPanel::WidgetSettings()
 
 void AdminPanel::on_AddButton_clicked()
 {
-    AddUserData *window = new AddUserData;
-    window->show();
+    AddUserData window;
+    window.setModal(true);
+    window.exec();
+
+    updateTable();
 }
 
 void AdminPanel::on_AddService_triggered()
