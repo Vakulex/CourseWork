@@ -7,7 +7,7 @@ AdminPanel::AdminPanel(QWidget *parent) :
     ui->setupUi(this);
 
     DatabaseManager::GetInstance()->ConnectToDatabase();
-    model = new QSqlTableModel();
+    model = new QSqlQueryModel();
 
     updateTable();
     WidgetSettings();
@@ -31,10 +31,18 @@ void AdminPanel::initResources()
     ui->OptionsAction->setIcon(QIcon(":/icons/img/b_gear_icon.png"));
 }
 
-void AdminPanel::updateTable()
+void AdminPanel::updateTable(QString arg)
 {
-    model->setTable("users");
-    model->select();
+    if(arg != "")
+    {
+        QString request = "SELECT * FROM users WHERE users_surname LIKE '%%1%' or users_name LIKE '%%1%' or users_middle_name LIKE '%%1%' or phone_number LIKE '%%1%'";
+        request = request.arg(arg);
+        model->setQuery(request);
+    }
+    else
+    {
+        model->setQuery("SELECT * FROM users");
+    }
 
     model->setHeaderData(0, Qt::Horizontal, tr("ID"));
     model->setHeaderData(1, Qt::Horizontal, tr("Прізвище"));
@@ -189,5 +197,11 @@ void AdminPanel::on_EditButton_clicked()
     {
         QMessageBox::warning(this, "Помилка", "Впищіть всі значення!");
     }
+}
+
+
+void AdminPanel::on_SearchLineEdit_textChanged(const QString &arg1)
+{
+    updateTable(arg1);
 }
 

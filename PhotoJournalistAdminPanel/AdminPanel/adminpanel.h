@@ -41,12 +41,14 @@ private slots:
 
     void on_EditButton_clicked();
 
+    void on_SearchLineEdit_textChanged(const QString &arg1);
+
 private:
     Ui::AdminPanel *ui;
-    QSqlTableModel *model;
+    QSqlQueryModel *model;
 
     void initResources();
-    void updateTable();
+    void updateTable(QString arg = "");
     void initCombobox();
     void WidgetSettings();
     bool linesIsNotEmpty();
