@@ -18,12 +18,12 @@ void DatabaseManager::ConnectToDatabase()
 {
     if(!m_db.open())
     {
-        m_db = QSqlDatabase::addDatabase("QSQLITE");
-//        m_db.setHostName("192.168.0.77");
-//        m_db.setPort(3306);
-//        m_db.setUserName("root");
-//        m_db.setPassword("123123");
-        m_db.setDatabaseName("/Users/daniil/Desktop/CourseWork/db/database.db");
+        m_db = QSqlDatabase::addDatabase("QODBC");
+        m_db.setHostName("192.168.0.77");
+        m_db.setPort(3306);
+        m_db.setUserName("root");
+        m_db.setPassword("123123");
+        m_db.setDatabaseName("coursework");
         checkDatabaseConnection();
     }
     return;
