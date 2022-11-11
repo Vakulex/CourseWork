@@ -60,7 +60,7 @@ bool AddUserData::checkIncorrectFields()
                 !ui->SurnameLineEdit->text().isEmpty() &&
                 !ui->PhoneNumberLineEdit->text().isEmpty() &&
                 !ui->AdressLineEdit->text().isEmpty() &&
-                !(ui->ServiceComboBox->currentText() == "Послуги") &&
+                (ui->ServiceComboBox->currentIndex() == 0) &&
                 !ui->PriceLabel_2->text().isEmpty() &&
                 !ui->StartDateEdit->date().isNull();
 

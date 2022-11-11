@@ -86,6 +86,9 @@
              <height>120</height>
             </size>
            </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::CurrentChanged|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+           </property>
            <property name="selectionMode">
             <enum>QAbstractItemView::SingleSelection</enum>
            </property>
@@ -235,15 +238,13 @@
      <x>0</x>
      <y>0</y>
      <width>842</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="OptionsMenu">
     <property name="title">
      <string>Налаштування</string>
     </property>
-    <addaction name="ProfileAction"/>
-    <addaction name="OptionsAction"/>
     <addaction name="separator"/>
     <addaction name="DBOptionsAction"/>
     <addaction name="AddService"/>
@@ -273,7 +274,7 @@
   </action>
   <action name="DeleteService">
    <property name="text">
-    <string>Видалити послугу</string>
+    <string>Видалити/Редагувати послугу</string>
    </property>
   </action>
  </widget>

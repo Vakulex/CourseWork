@@ -48,7 +48,8 @@ private:
     QSqlQueryModel *model;
 
     void initResources();
-    void updateTable(QString arg = "");
+    void updateTable(QString arg);
+    void updateTable();
     void initCombobox();
     void WidgetSettings();
     bool linesIsNotEmpty();

@@ -54,6 +54,21 @@ void AdminPanel::updateTable(QString arg)
     initCombobox();
 }
 
+void AdminPanel::updateTable()
+{
+    model->setQuery("SELECT * FROM users");
+
+    model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+    model->setHeaderData(1, Qt::Horizontal, tr("Прізвище"));
+    model->setHeaderData(2, Qt::Horizontal, tr("Ім'я"));
+    model->setHeaderData(3, Qt::Horizontal, tr("По-батькові"));
+    model->setHeaderData(4, Qt::Horizontal, tr("Номер телефону"));
+
+    ui->UsersTable->setModel(model);
+    ui->UsersTable->hideColumn(0);
+    initCombobox();
+}
+
 void AdminPanel::WidgetSettings()
 {
     ui->UsersTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
