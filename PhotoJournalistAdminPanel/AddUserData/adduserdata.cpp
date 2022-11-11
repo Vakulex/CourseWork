@@ -60,7 +60,7 @@ bool AddUserData::checkIncorrectFields()
                 !ui->SurnameLineEdit->text().isEmpty() &&
                 !ui->PhoneNumberLineEdit->text().isEmpty() &&
                 !ui->AdressLineEdit->text().isEmpty() &&
-                !ui->ServiceComboBox->itemText(-1).contains("Послуги") &&
+                !(ui->ServiceComboBox->currentText() == "Послуги") &&
                 !ui->PriceLabel_2->text().isEmpty() &&
                 !ui->StartDateEdit->date().isNull();
 
@@ -92,8 +92,8 @@ void AddUserData::addUser()
     order_query.prepare("INSERT INTO order_data(creation_date, finalization_date, img, adress, order_price, order_status, users_ID, service_ID) "
                         "VALUES(:s_date, :f_date, :img, :adress, :price, :status, :user_id, :service)");
     order_query.bindValue(":s_date", ui->StartDateEdit->text());
-    order_query.bindValue(":f_date", "");
-    order_query.bindValue(":img", "");
+    order_query.bindValue(":f_date", NULL);
+    order_query.bindValue(":img", NULL);
 
     order_query.bindValue(":adress", ui->AdressLineEdit->text());
     order_query.bindValue(":price",  ui->PriceLabel_2->text().toInt());
