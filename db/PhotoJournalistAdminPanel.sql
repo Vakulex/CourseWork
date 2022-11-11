@@ -30,3 +30,8 @@ CREATE TABLE if not exists order_data(
     FOREIGN KEY(users_ID) REFERENCES users(users_ID) ON DELETE CASCADE,
     FOREIGN KEY(service_ID) REFERENCES services(service_ID) ON DELETE CASCADE
 );
+
+INSERT INTO users(users_surname, users_name, users_middle_name, phone_number) 
+VALUES("Vakulenko", "Oleksii", "Dmytrovich", "+380965221763");
+INSERT INTO order_data(creation_date, finalization_date, img, adress, order_price, order_status, users_id, service_id)
+VALUES("2022-11-11", NULL, NULL, "Topolya-3", 1200, false, (SELECT LAST_INSERT_ID()), 1);

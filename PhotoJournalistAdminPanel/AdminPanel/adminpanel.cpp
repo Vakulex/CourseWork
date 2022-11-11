@@ -12,7 +12,6 @@ AdminPanel::AdminPanel(QWidget *parent) :
     updateTable();
     WidgetSettings();
     initResources();
-    initCombobox();
 }
 
 AdminPanel::~AdminPanel()
