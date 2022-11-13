@@ -26,7 +26,7 @@ void AddUserData::on_StatusCheckBox_toggled(bool checked)
 
 void AddUserData::setValidFields()
 {
-    QRegularExpression rx("[A-zА-яЁёЄєЇїІі]+");
+    QRegularExpression rx("[A-zА-яЁёЄєЇїІі']+");
     QValidator *validator = new QRegularExpressionValidator(rx, this);
 
     ui->NameLineEdit->setValidator(validator);
@@ -51,6 +51,9 @@ void AddUserData::initComboBox()
     }
 
     ui->ServiceComboBox->addItems(status);
+    ui->ServiceComboBox->setCurrentIndex(0);
+
+    setServiceValues(ui->ServiceComboBox->currentText());
 }
 
 bool AddUserData::checkIncorrectFields()
@@ -60,7 +63,7 @@ bool AddUserData::checkIncorrectFields()
                 !ui->SurnameLineEdit->text().isEmpty() &&
                 !ui->PhoneNumberLineEdit->text().isEmpty() &&
                 !ui->AdressLineEdit->text().isEmpty() &&
-                (ui->ServiceComboBox->currentIndex() == 0) &&
+                !ui->ServiceComboBox->itemText(-1).contains("Послуги") &&
                 !ui->PriceLabel_2->text().isEmpty() &&
                 !ui->StartDateEdit->date().isNull();
 
@@ -111,19 +114,7 @@ void AddUserData::addUser()
     order_query.exec();
 }
 
-
-void AddUserData::on_AddUserButton_clicked()
-{
-    qDebug() << checkIncorrectFields();
-
-    if(checkIncorrectFields())
-    {
-        addUser();
-        this->close();
-    }
-}
-
-void AddUserData::on_ServiceComboBox_textActivated(const QString &arg1)
+void AddUserData::setServiceValues(QString arg1)
 {
     QSqlQuery query;
     query.prepare("SELECT service_ID, service_price FROM services WHERE name_service = :name;");
@@ -135,5 +126,30 @@ void AddUserData::on_ServiceComboBox_textActivated(const QString &arg1)
 
     ui->PriceLabel_2->setText(record.value("service_price").toString());
     service_id = record.value("service_ID").toInt();
+}
+
+
+void AddUserData::on_AddUserButton_clicked()
+{
+    qDebug() << checkIncorrectFields();
+
+    if(checkIncorrectFields())
+    {
+        QMessageBox::warning(this, "Успішно", "Додавання пройшло успішно");
+        addUser();
+        this->close();
+    }
+    else
+    {
+        if(ui->StartDateEdit->date() >= ui->EndOrderDate->date())
+            QMessageBox::warning(this, "Помилка", "Не вдалося додати користувача. Дата початку не може бути пізніше за дату окінчення");
+        else
+            QMessageBox::warning(this, "Помилка", "Не вдалося додати користувача. Заповніть, будь ласка, всі поля");
+    }
+}
+
+void AddUserData::on_ServiceComboBox_textActivated(const QString &arg1)
+{
+    setServiceValues(arg1);
 }
 

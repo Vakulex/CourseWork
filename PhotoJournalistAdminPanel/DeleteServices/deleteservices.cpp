@@ -18,8 +18,11 @@ DeleteServices::DeleteServices(QWidget *parent) :
     model->setHeaderData(3, Qt::Horizontal, tr("Ціна"));
     model->setHeaderData(4, Qt::Horizontal, tr("Коментар"));
 
+    model->setEditStrategy(QSqlTableModel::OnFieldChange);
+
     ui->ServicesTableView->setModel(model);
     ui->DeleteButton->setIcon(QIcon(":/icons/img/b_minus_icon.png"));
+
 }
 
 DeleteServices::~DeleteServices()
@@ -40,3 +43,9 @@ void DeleteServices::on_DeleteButton_clicked()
         model->select();
     }
 }
+
+void DeleteServices::on_pushButton_clicked()
+{
+    model->submitAll();
+}
+

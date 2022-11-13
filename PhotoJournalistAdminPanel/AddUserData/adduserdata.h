@@ -5,6 +5,8 @@
 #include "qsqlquerymodel.h"
 #include "qsqlquery.h"
 #include "AddService/addservice.h"
+#include <qdesktopservices.h>
+#include <QUrl>
 #include <QCloseEvent>
 
 namespace Ui {
@@ -32,6 +34,7 @@ private:
     bool checkIncorrectFields();
     void addUser();
     QString calculatePrice(int);
+    void setServiceValues(QString);
 
     int service_id = 0;
 };

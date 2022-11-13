@@ -166,46 +166,67 @@ void AdminPanel::on_UsersTable_clicked(const QModelIndex &index)
         ui->EndDate->setEnabled(false);
         ui->PhotoPathLineEdit->setEnabled(false);
     }
+
+    ui->OpenUrlButton->setEnabled(ui->statusCheckBox->isChecked());
 }
 
-bool AdminPanel::linesIsNotEmpty()
+bool AdminPanel::linesAreNotEmpty(bool checked)
 {
-    return !ui->StartDate->text().isEmpty() &&
-           !ui->EndDate->text().isEmpty() &&
-           !ui->PriceLineEdit->text().isEmpty() &&
-           !ui->PhotoPathLineEdit->text().isEmpty() &&
-           !ui->AdressLineEdit->text().isEmpty() &&
-           !ui->ServiceComboBox->itemText(-1).contains("Послуги") &&
-           !ui->EndDate->date().isNull() &&
-           !ui->PhotoPathLineEdit->text().isEmpty();
+    if(checked)
+    {
+        return !ui->StartDate->text().isEmpty() &&
+               !ui->EndDate->text().isEmpty() &&
+               !ui->PriceLineEdit->text().isEmpty() &&
+               !ui->AdressLineEdit->text().isEmpty() &&
+               !ui->ServiceComboBox->itemText(-1).contains("Послуги") &&
+               !ui->EndDate->date().isNull() &&
+               !ui->PhotoPathLineEdit->text().isEmpty();
+    }
+    else
+        return !ui->StartDate->text().isEmpty() &&
+               !ui->PriceLineEdit->text().isEmpty() &&
+               !ui->AdressLineEdit->text().isEmpty() &&
+               !ui->ServiceComboBox->itemText(-1).contains("Послуги");
 }
 
 void AdminPanel::on_EditButton_clicked()
 {
-    if(linesIsNotEmpty())
+    qDebug() << ui->statusCheckBox->isChecked();
+    qDebug() << linesAreNotEmpty(ui->statusCheckBox->isChecked());
+    if(linesAreNotEmpty(ui->statusCheckBox->isChecked()))
     {
         int serviceId = 0;
         int userId = 0;
 
         QSqlQuery query;
-        query.exec("SELECT service_ID from services where type_service = " + ui->ServiceComboBox->currentText());
-        while(query.next())
-        {
-            QSqlRecord recorder = query.record();
-            serviceId = recorder.value("service_ID").toInt();
-        }
+        query.exec("SELECT service_ID from services where name_service = '" + ui->ServiceComboBox->currentText() + "'");
+        query.next();
+        QSqlRecord recorder = query.record();
+        serviceId = recorder.value("service_ID").toInt();
 
         QModelIndex index = ui->UsersTable->selectionModel()->currentIndex();
         userId = index.sibling(index.row(), 0).data().toInt();
 
+        if(ui->statusCheckBox->isChecked())
+        {
+            QString request = "UPDATE order_data SET creation_date = '%1', finalization_date = '%2', img = '%3', adress = '%4', order_price = '%5', service_ID = %6 where users_ID = %7";
+            request = request.arg(ui->StartDate->text(), ui->EndDate->text(), ui->PhotoPathLineEdit->text(), ui->AdressLineEdit->text(), ui->PriceLineEdit->text(), QString::number(serviceId), QString::number(userId));
 
-        QString request = "UPDATE order_data SET creation_date = '%1', finalization_date = '%2', img = '%3', adress = '%4', order_price = '%5', service_ID = %6 where users_ID = %7";
-        request = request.arg(ui->StartDate->text(), ui->EndDate->text(), ui->PhotoPathLineEdit->text(), ui->AdressLineEdit->text(), ui->PriceLineEdit->text(), QString::number(serviceId), QString::number(userId));
-
-        if(query.exec(request))
-            QMessageBox::warning(this, "Вдало", "Данні були змінені!");
+            if(query.exec(request))
+                QMessageBox::warning(this, "Вдало", "Данні були змінені!");
+            else
+                QMessageBox::warning(this, "Помилка", "Помилка запросу!");
+        }
         else
-            QMessageBox::warning(this, "Помилка", "Помилка запросу!");
+        {
+            QString request = "UPDATE order_data SET creation_date = '%1', adress = '%4', order_price = '%5', service_ID = %6 where users_ID = %7";
+            request = request.arg(ui->StartDate->text(), ui->AdressLineEdit->text(), ui->PriceLineEdit->text(), QString::number(serviceId), QString::number(userId));
+
+            if(query.exec(request))
+                QMessageBox::warning(this, "Вдало", "Данні були змінені!");
+            else
+                QMessageBox::warning(this, "Помилка", "Помилка запросу!");
+        }
     }
     else
     {
@@ -213,9 +234,26 @@ void AdminPanel::on_EditButton_clicked()
     }
 }
 
-
 void AdminPanel::on_SearchLineEdit_textChanged(const QString &arg1)
 {
     updateTable(arg1);
+}
+
+
+void AdminPanel::on_statusCheckBox_toggled(bool checked)
+{
+    ui->OpenUrlButton->setEnabled(checked);
+}
+
+void AdminPanel::on_OpenUrlButton_clicked()
+{
+    QString link = "";
+    if(!ui->PhotoPathLineEdit->text().isEmpty())
+    {
+        link = "https://" + ui->PhotoPathLineEdit->text();
+        QDesktopServices::openUrl(QUrl(link));
+    }
+    else
+        QMessageBox::warning(this, "Помилка", "Поле потрібно заповнити");
 }
 

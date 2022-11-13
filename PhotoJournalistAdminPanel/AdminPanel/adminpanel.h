@@ -43,6 +43,10 @@ private slots:
 
     void on_SearchLineEdit_textChanged(const QString &arg1);
 
+    void on_statusCheckBox_toggled(bool checked);
+
+    void on_OpenUrlButton_clicked();
+
 private:
     Ui::AdminPanel *ui;
     QSqlQueryModel *model;
@@ -52,7 +56,7 @@ private:
     void updateTable();
     void initCombobox();
     void WidgetSettings();
-    bool linesIsNotEmpty();
+    bool linesAreNotEmpty(bool);
 };
 
 #endif // ADMINPANEL_H

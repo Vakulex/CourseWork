@@ -19,6 +19,8 @@ public:
 private slots:
     void on_DeleteButton_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::DeleteServices *ui;
     QSqlTableModel *model;
